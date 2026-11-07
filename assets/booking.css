@@ -1,0 +1,97 @@
+/* DSH demo booking calendar — shared component.
+   Colours come from CSS variables set by each site, so the block adopts the
+   surrounding style instead of fighting it. */
+
+.bk{
+  --bk-text: var(--ink, #141311);
+  --bk-soft: var(--soft, rgba(0,0,0,.55));
+  --bk-line: var(--rule, rgba(0,0,0,.14));
+  --bk-accent: var(--accent, #8A5A3B);
+  --bk-radius: var(--radius, 2px);
+  --bk-font: inherit;
+  color: var(--bk-text);
+  font-family: var(--bk-font);
+}
+
+.bk__head{max-width:640px;margin-bottom:34px}
+.bk__label{
+  font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--bk-soft);margin-bottom:14px;
+}
+.bk__title{
+  font-family:inherit;font-size:clamp(26px,3.4vw,46px);line-height:1.06;
+  margin:0 0 12px;letter-spacing:-.02em;
+}
+.bk__sub{font-size:14px;line-height:1.6;color:var(--bk-soft);margin:0;max-width:44ch}
+
+.bk__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:start}
+
+/* ---- days ---- */
+.bk__days-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px}
+.bk__month{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--bk-soft)}
+.bk__days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.bk__day{
+  appearance:none;background:transparent;color:inherit;cursor:pointer;
+  border:1px solid var(--bk-line);border-radius:var(--bk-radius);
+  padding:10px 2px 8px;display:grid;gap:2px;justify-items:center;
+  font:inherit;transition:border-color .16s,background .16s,color .16s;
+}
+.bk__day:hover{border-color:var(--bk-accent)}
+.bk__day small{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--bk-soft)}
+.bk__day b{font-size:16px;font-weight:600;line-height:1.1}
+.bk__day[aria-pressed="true"]{background:var(--bk-accent);border-color:var(--bk-accent);color:#fff}
+.bk__day[aria-pressed="true"] small{color:rgba(255,255,255,.75)}
+.bk__day:disabled{opacity:.35;cursor:not-allowed}
+
+/* ---- slots ---- */
+.bk__slots-head{margin:22px 0 12px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--bk-soft)}
+.bk__slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:6px}
+.bk__slot{
+  appearance:none;font:inherit;font-size:13.5px;font-weight:500;
+  padding:11px 4px;cursor:pointer;border-radius:var(--bk-radius);
+  border:1px solid var(--bk-line);background:transparent;color:inherit;
+  transition:border-color .16s,background .16s,color .16s;
+}
+.bk__slot:hover:not(:disabled){border-color:var(--bk-accent)}
+.bk__slot[aria-pressed="true"]{background:var(--bk-accent);border-color:var(--bk-accent);color:#fff}
+.bk__slot:disabled{opacity:.3;cursor:not-allowed;text-decoration:line-through}
+.bk__empty{font-size:13px;color:var(--bk-soft)}
+
+/* ---- form ---- */
+.bk__form{display:grid;gap:16px}
+.bk__field{display:grid;gap:6px}
+.bk__field span{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--bk-soft)}
+.bk__field input,.bk__field select{
+  font:inherit;font-size:15px;color:inherit;background:transparent;
+  border:0;border-bottom:1px solid var(--bk-line);border-radius:0;padding:10px 0;
+  transition:border-color .16s;
+}
+.bk__field select option{color:#111}
+.bk__field input::placeholder{color:var(--bk-soft)}
+.bk__field input:focus,.bk__field select:focus{outline:none;border-bottom-color:var(--bk-accent)}
+.bk__row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.bk__summary{
+  font-size:13px;color:var(--bk-soft);padding:12px 0;border-top:1px solid var(--bk-line);
+  min-height:20px;
+}
+.bk__summary b{color:var(--bk-text);font-weight:600}
+.bk__submit{
+  justify-self:start;font:inherit;font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  padding:15px 28px;border-radius:var(--bk-radius);cursor:pointer;
+  background:var(--bk-accent);color:#fff;border:1px solid var(--bk-accent);
+  transition:opacity .16s,background .16s,color .16s;
+}
+.bk__submit:disabled{opacity:.45;cursor:not-allowed}
+.bk__submit:not(:disabled):hover{background:transparent;color:var(--bk-accent)}
+.bk__note{font-size:11.5px;color:var(--bk-soft);margin:0}
+.bk__done{font-size:14px;display:grid;gap:6px}
+.bk__done b{font-size:16px}
+
+@media (max-width:900px){
+  .bk__grid{grid-template-columns:1fr;gap:32px}
+  .bk__row{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  .bk__days{grid-template-columns:repeat(4,1fr)}
+  .bk__slots{grid-template-columns:repeat(auto-fill,minmax(68px,1fr))}
+}

@@ -1,0 +1,86 @@
+/* DSH demo gift cards — shared component.
+   Colours and type come from variables set inline on .gc, so the block
+   inherits the surrounding style. */
+
+.gc{
+  --gc-text: var(--ink, #141311);
+  --gc-soft: var(--soft, rgba(0,0,0,.55));
+  --gc-line: var(--rule, rgba(0,0,0,.14));
+  --gc-accent: var(--accent, #8A5A3B);
+  --gc-radius: var(--radius, 2px);
+  --gc-display: inherit;
+  color: var(--gc-text);
+}
+
+.gc__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);align-items:center}
+
+.gc__label{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gc-soft);margin-bottom:14px}
+.gc__title{font-family:var(--gc-display);font-size:clamp(26px,3.4vw,46px);line-height:1.06;margin:0 0 14px;letter-spacing:-.02em}
+.gc__sub{font-size:14.5px;line-height:1.6;color:var(--gc-soft);margin:0 0 26px;max-width:42ch}
+
+.gc__amounts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.gc__amount{
+  appearance:none;font:inherit;font-size:14px;font-weight:500;cursor:pointer;
+  padding:12px 20px;border:1px solid var(--gc-line);border-radius:var(--gc-radius);
+  background:transparent;color:inherit;
+  transition:border-color .16s,background .16s,color .16s;
+}
+.gc__amount:hover{border-color:var(--gc-accent)}
+.gc__amount[aria-pressed="true"]{background:var(--gc-accent);border-color:var(--gc-accent);color:#fff}
+
+.gc__form{display:grid;gap:14px;max-width:420px}
+.gc__row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gc__field{display:grid;gap:6px}
+.gc__field span{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gc-soft)}
+.gc__field input{
+  font:inherit;font-size:15px;color:inherit;background:transparent;
+  border:0;border-bottom:1px solid var(--gc-line);border-radius:0;padding:10px 0;
+  transition:border-color .16s;
+}
+.gc__field input::placeholder{color:var(--gc-soft)}
+.gc__field input:focus{outline:none;border-bottom-color:var(--gc-accent)}
+
+.gc__submit{
+  justify-self:start;font:inherit;font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  padding:15px 28px;border-radius:var(--gc-radius);cursor:pointer;
+  background:var(--gc-accent);color:#fff;border:1px solid var(--gc-accent);
+  transition:background .16s,color .16s;
+}
+.gc__submit:hover{background:transparent;color:var(--gc-accent)}
+.gc__note{font-size:11.5px;color:var(--gc-soft);margin:0}
+
+/* ---- certificate preview ---- */
+.gc__card{
+  position:relative;aspect-ratio:1.6/1;border:1px solid var(--gc-accent);border-radius:var(--gc-radius);
+  padding:clamp(18px,3vw,34px);display:flex;flex-direction:column;justify-content:space-between;
+  background:
+    repeating-linear-gradient(135deg, transparent 0 9px, color-mix(in srgb, var(--gc-accent) 7%, transparent) 9px 10px);
+  overflow:hidden;
+}
+.gc__card::after{
+  content:"";position:absolute;right:-40px;top:-40px;width:150px;height:150px;
+  border:1px solid var(--gc-accent);border-radius:50%;opacity:.35;
+}
+.gc__brand{
+  font-family:var(--gc-display);font-size:clamp(15px,1.6vw,20px);letter-spacing:.22em;
+  text-transform:uppercase;
+}
+.gc__brand i{font-style:normal;color:var(--gc-accent)}
+.gc__middle{display:grid;gap:6px}
+.gc__sum{
+  font-family:var(--gc-display);font-size:clamp(30px,4.4vw,56px);line-height:1;letter-spacing:-.02em;
+}
+.gc__caption{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gc-soft)}
+.gc__foot{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gc-soft)}
+
+.gc__done{display:grid;gap:6px;font-size:14px}
+.gc__done b{font-size:16px}
+
+@media (max-width:900px){
+  .gc__grid{grid-template-columns:1fr}
+  .gc__card{order:-1}
+}
+@media (max-width:520px){
+  .gc__row{grid-template-columns:1fr}
+  .gc__amount{padding:11px 16px;font-size:13.5px}
+}
